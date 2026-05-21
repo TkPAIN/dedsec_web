@@ -1,153 +1,456 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>DedSec | Despertar Colectivo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="terminal-overlay"></div>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at 20% 50%, #0a0a0f, #000000);
+    font-family: 'Space Grotesk', 'Share Tech Mono', monospace;
+    color: #00ffcc;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Overlay estilo CRT */
+.terminal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 204, 0.03) 0px,
+        rgba(0, 255, 204, 0.03) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* BARRA DE ESTADO */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #00ffcc;
+    border-bottom: 1px solid rgba(0, 255, 204, 0.3);
+    margin-bottom: 1rem;
+}
+
+/* HEADER DEDSEC */
+.dedsec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid #00ffcc;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.dedsec-symbol {
+    font-size: 2rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; text-shadow: 0 0 5px #00ffcc; }
+    50% { opacity: 0.7; text-shadow: 0 0 15px #00ffcc; }
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+}
+
+.followers-count {
+    text-align: right;
+}
+
+.followers-label {
+    font-size: 0.7rem;
+    color: #888;
+    display: block;
+}
+
+.followers-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff3366;
+}
+
+/* NAVEGACIÓN */
+.main-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    padding: 0.8rem 1.5rem;
+    font-family: 'Space Grotesk', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: #00ffcc20;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+.nav-btn.active {
+    background: #00ffcc;
+    color: #000;
+    border-color: #00ffcc;
+    box-shadow: 0 0 15px #00ffcc;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+    min-height: 500px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 255, 204, 0.3);
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECCIÓN DE MISIONES */
+.cyber-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #1a1a2e;
+    border-radius: 4px;
+    margin: 1rem 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffcc, #ff3366);
+    transition: width 0.5s ease;
+}
+
+.missions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mission-card {
+    background: rgba(0, 0, 0, 0.7);
+    border-left: 4px solid #00ffcc;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.mission-card:hover {
+    transform: translateX(5px);
+    background: rgba(0, 255, 204, 0.1);
+}
+
+.mission-info h4 {
+    color: #00ffcc;
+    margin-bottom: 0.3rem;
+}
+
+.mission-info p {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.mission-reward {
+    font-size: 0.8rem;
+    color: #ffaa33;
+}
+
+.mission-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.status-pending {
+    background: #ff3366;
+    color: #fff;
+}
+
+.status-completed {
+    background: #00cc66;
+    color: #fff;
+}
+
+.research-points {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 255, 204, 0.05);
+    border-radius: 8px;
+}
+
+.points-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffaa33;
+}
+
+/* MAPA */
+.map-placeholder {
+    background: #0a0a0f;
+    height: 300px;
+    position: relative;
+    border: 1px solid #00ffcc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-grid {
+    background-image: 
+        linear-gradient(#00ffcc10 1px, transparent 1px),
+        linear-gradient(90deg, #00ffcc10 1px, transparent 1px);
+    background-size: 30px 30px;
+    width: 100%;
+    height: 100%;
+}
+
+.map-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 2rem;
+    filter: drop-shadow(0 0 5px #ff3366);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -60%); }
+}
+
+.map-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.map-controls button {
+    background: #000;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* CHAT */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.message {
+    margin-bottom: 0.8rem;
+    padding: 0.5rem;
+    border-left: 3px solid #00ffcc;
+}
+
+.message.system {
+    color: #ffaa33;
+    font-style: italic;
+}
+
+.message.user strong {
+    color: #00ffcc;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input-area input {
+    flex: 1;
+    background: #000;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    padding: 0.8rem;
+    font-family: monospace;
+}
+
+.chat-input-area button {
+    background: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 0 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SKILLS */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.skill-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.skill-card.locked {
+    opacity: 0.5;
+}
+
+.skill-card.available {
+    border-color: #00ffcc;
+    box-shadow: 0 0 10px #00ffcc20;
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.skill-card button {
+    margin-top: 1rem;
+    background: #00ffcc;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.skill-card button:disabled {
+    background: #333;
+    cursor: not-allowed;
+}
+
+/* FOOTER */
+.dedsec-footer {
+    margin-top: 2rem;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(0, 255, 204, 0.3);
+    font-size: 0.8rem;
+}
+
+.glitch-text {
+    font-family: monospace;
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0%, 100% { text-shadow: 2px 0 #ff3366, -2px 0 #00ffcc; }
+    25% { text-shadow: -2px 0 #ff3366, 2px 0 #00ffcc; }
+    50% { text-shadow: 2px 0 #00ffcc, -2px 0 #ff3366; }
+    75% { text-shadow: -2px 0 #00ffcc, 2px 0 #ff3366; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 0.5rem;
+    }
     
-    <div class="app-container">
-        <!-- BARRA DE ESTADO (estilo móvil/desktop) -->
-        <div class="status-bar">
-            <div class="time">21:47</div>
-            <div class="battery">
-                <span>94%</span>
-                <div class="battery-icon"></div>
-            </div>
-        </div>
-
-        <!-- HEADER DEDSEC -->
-        <header class="dedsec-header">
-            <div class="logo">
-                <span class="dedsec-symbol">⎈</span>
-                <h1>DedSec</h1>
-            </div>
-            <div class="followers-count">
-                <span class="followers-label">SEGUIDORES</span>
-                <span class="followers-number" id="followersCount">12,847</span>
-            </div>
-        </header>
-
-        <!-- NAVEGACIÓN PRINCIPAL (igual que en el juego) -->
-        <nav class="main-nav">
-            <button class="nav-btn active" data-page="missions">
-                <span class="nav-icon">📡</span>
-                <span>MISIONES</span>
-            </button>
-            <button class="nav-btn" data-page="map">
-                <span class="nav-icon">🗺️</span>
-                <span>NUDLE MAPS</span>
-            </button>
-            <button class="nav-btn" data-page="chat">
-                <span class="nav-icon">💬</span>
-                <span>DEDSEC CHAT</span>
-            </button>
-            <button class="nav-btn" data-page="research">
-                <span class="nav-icon">🔓</span>
-                <span>INVESTIGA</span>
-            </button>
-        </nav>
-
-        <!-- CONTENEDOR DE PÁGINAS DINÁMICAS -->
-        <main class="main-content">
-            <!-- PÁGINA DE MISIONES (HOME) -->
-            <div id="missions-page" class="page active">
-                <div class="cyber-header">
-                    <h2>OPERACIONES ACTIVAS</h2>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 34%"></div>
-                    </div>
-                    <span class="progress-text">34% COMPLETADO</span>
-                </div>
-
-                <div class="missions-list" id="missionsList">
-                    <!-- Las misiones se generarán con JS -->
-                </div>
-
-                <div class="research-points">
-                    <h3>PUNTOS DE INVESTIGACIÓN</h3>
-                    <div class="points-value">3</div>
-                    <p>Completa misiones para ganar más</p>
-                </div>
-            </div>
-
-            <!-- PÁGINA DEL MAPA (Nudle Maps) -->
-            <div id="map-page" class="page">
-                <div class="map-container">
-                    <div class="map-placeholder">
-                        <div class="map-grid"></div>
-                        <div class="map-marker">📍</div>
-                        <div class="map-controls">
-                            <button>+</button>
-                            <button>-</button>
-                        </div>
-                    </div>
-                    <div class="map-info">
-                        <p>📍 San Francisco, Bay Area</p>
-                        <p>🔓 Hackea nodos para expandir el mapa</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PÁGINA DE CHAT DEDSEC -->
-            <div id="chat-page" class="page">
-                <div class="chat-container">
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="message system">🤖 Conectado al servidor DedSec</div>
-                        <div class="message system">🔐 Canal cifrado AES-256</div>
-                        <div class="message user"><strong>Sitara:</strong> ¿Alguien tiene info de Blume?</div>
-                        <div class="message user"><strong>Marcus:</strong> Estoy dentro de su servidor proxy</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <input type="text" id="chatInput" placeholder="Mensaje cifrado...">
-                        <button id="sendChat">📡 ENVIAR</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PÁGINA DE INVESTIGACIÓN -->
-            <div id="research-page" class="page">
-                <div class="research-header">
-                    <h2>🔓 DESBLOQUEABLES</h2>
-                    <p>Gasta puntos de investigación</p>
-                </div>
-                <div class="skills-grid">
-                    <div class="skill-card locked">
-                        <span class="skill-icon">📱</span>
-                        <h4>Botnet Distribuida</h4>
-                        <p>Controla 4 dispositivos a la vez</p>
-                        <button disabled>3 PUNTOS</button>
-                    </div>
-                    <div class="skill-card locked">
-                        <span class="skill-icon">🚗</span>
-                        <h4>Secuestro de Vehículos</h4>
-                        <p>Controla coches remotamente</p>
-                        <button disabled>2 PUNTOS</button>
-                    </div>
-                    <div class="skill-card available">
-                        <span class="skill-icon">📡</span>
-                        <h4>Escaneo Mejorado</h4>
-                        <p>Doble rango de escaneo</p>
-                        <button class="unlock-btn" data-cost="1">1 PUNTO</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- FOOTER HACKER -->
-        <footer class="dedsec-footer">
-            <div class="glitch-text">#DespertarColectivo</div>
-            <div class="cyber-stats">
-                <span>🛡️ Cifrado activo</span>
-                <span>🌐 7 nodos activos</span>
-            </div>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    
+    .followers-number {
+        font-size: 1.2rem;
+    }
+    
+    .nav-btn span:last-child {
+        display: none;
+    }
+    
+    .nav-btn {
+        padding: 0.8rem;
+    }
+    
+    .nav-icon {
+        font-size: 1.3rem;
+    }
+    
+    .mission-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
