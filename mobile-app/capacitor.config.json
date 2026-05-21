@@ -1,0 +1,15 @@
+{
+  "appId": "com.dedsec.mobile",
+  "appName": "DedSec OS",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#000000",
+      "overlaysWebView": false
+    }
+  }
+}
