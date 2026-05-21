@@ -1,0 +1,23 @@
+{
+  "name": "dedsec-mobile",
+  "version": "1.0.0",
+  "description": "DedSec Mobile - Hacking colectivo",
+  "main": "index.js",
+  "scripts": {
+    "build": "cp -r ../website/* www/",
+    "sync": "npx cap sync",
+    "open-android": "npx cap open android",
+    "build-android": "npm run build && npx cap copy && npx cap sync && cd android && ./gradlew assembleDebug",
+    "build-apk": "npm run build-android && cp android/app/build/outputs/apk/debug/app-debug.apk ../website/downloads/dedsec-mobile.apk"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/core": "^5.7.0",
+    "@capacitor/filesystem": "^5.1.4",
+    "@capacitor/preferences": "^5.0.6",
+    "@capacitor/status-bar": "^5.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.7.0"
+  }
+}
