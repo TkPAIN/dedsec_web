@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DedSec - Descargar App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .download-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .download-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #00ffcc10, #ff336610);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        
+        .download-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .download-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .download-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ffcc;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px #00ffcc;
+        }
+        
+        .download-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .download-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00ffcc;
+        }
+        
+        .download-card p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #00ffcc;
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .download-btn:hover {
+            background: #ff3366;
+            transform: scale(1.05);
+        }
+        
+        .qr-section {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+        }
+        
+        .qr-code {
+            display: inline-block;
+            padding: 1rem;
+            background: white;
+            border-radius: 20px;
+            margin: 1rem 0;
+        }
+        
+        .instructions {
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions code {
+            background: #000;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-overlay"></div>
+    
+    <div class="app-container">
+        <div class="status-bar">
+            <div class="time"></div>
+            <div class="battery">DedSec ████████</div>
+        </div>
+        
+        <header class="dedsec-header">
+            <div class="logo">
+                <span class="dedsec-symbol">⎈</span>
+                <h1>DedSec</h1>
+            </div>
+            <a href="index.html" style="color:#00ffcc; text-decoration:none;">← VOLVER A LA APP</a>
+        </header>
+        
+        <div class="download-container">
+            <div class="download-hero">
+                <h1>⎈ DESCARGAR DEDSEC OS ⎈</h1>
+                <p>El sistema operativo del colectivo. Cifrado, anónimo, imparable.</p>
+            </div>
+            
+            <div class="download-cards">
+                <!-- Windows -->
+                <div class="download-card">
+                    <div class="download-icon">🪟</div>
+                    <h3>Windows</h3>
+                    <p>Versión 1.0.0 • 64 bits</p>
+                    <a href="#" class="download-btn" id="downloadWindows">📥 DESCARGAR .EXE</a>
+                    <small style="display:block; margin-top:1rem;">Windows 10 / 11</small>
+                </div>
+                
+                <!-- macOS -->
+                <div class="download-card">
+                    <div class="download-icon">🍎</div>
+                    <h3>macOS</h3>
+                    <p>Versión 1.0.0 • Universal</p>
+                    <a href="#" class="download-btn" id="downloadMac">📥 DESCARGAR .DMG</a>
+                    <small style="display:block; margin-top:1rem;">macOS 11 o superior</small>
+                </div>
+                
+                <!-- Linux -->
+                <div class="download-card">
+                    <div class="download-icon">🐧</div>
+                    <h3>Linux</h3>
+                    <p>Versión 1.0.0 • AppImage</p>
+                    <a href="#" class="download-btn" id="downloadLinux">📥 DESCARGAR .AppImage</a>
+                    <small style="display:block; margin-top:1rem;">Ubuntu/Debian/Fedora/Arch</small>
+                </div>
+                
+                <!-- Android -->
+                <div class="download-card">
+                    <div class="download-icon">📱</div>
+                    <h3>Android</h3>
+                    <p>Versión 1.0.0 • APK</p>
+                    <a href="#" class="download-btn" id="downloadAndroid">📥 DESCARGAR .APK</a>
+                    <small style="display:block; margin-top:1rem;">Android 8.0 o superior</small>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <h3>⎈ ESCANEA PARA DESCARGAR ⎈</h3>
+                <div class="qr-code" id="qrCode">
+                    <!-- Aquí iría un QR generado dinámicamente -->
+                    <div style="width:200px; height:200px; background:#000; display:flex; align-items:center; justify-content:center;">
+                        📱 CÓDIGO QR
+                    </div>
+                </div>
+                <p>Escanea con tu móvil para descargar la app directamente</p>
+                
+                <div class="instructions">
+                    <h4>⎈ INSTRUCCIONES DE INSTALACIÓN ⎈</h4>
+                    <ul style="list-style:none; margin-top:1rem;">
+                        <li><strong>Windows/Mac/Linux:</strong> Descarga el archivo, ejecútalo y sigue las instrucciones.</li>
+                        <li><strong>Android:</strong> Permite "Instalar desde orígenes desconocidos" en Ajustes > Seguridad.</li>
+                        <li><strong>iOS:</strong> Próximamente en TestFlight (en revisión por Apple).</li>
+                    </ul>
+                    <p style="margin-top:1rem; color:#ffaa33;">⚠️ Los ejecutables están firmados digitalmente por DedSec Collective</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="dedsec-footer">
+            <div class="glitch-text">#DespertarColectivo</div>
+            <div class="cyber-stats">
+                <span>🛡️ Descargas seguras</span>
+                <span>🔐 Verificación PGP</span>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Simular descargas (aquí luego conectas con archivos reales)
+        const downloads = {
+            windows: '/downloads/dedsec-setup-1.0.0.exe',
+            mac: '/downloads/dedsec-1.0.0.dmg',
+            linux: '/downloads/dedsec-1.0.0.AppImage',
+            android: '/downloads/dedsec-1.0.0.apk'
+        };
+        
+        document.getElementById('downloadWindows')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('📥 Preparando descarga de DedSec para Windows...\n(Para producción, aquí iría el enlace real)');
+        });
+        
+        document.getElementById('downloadMac')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('📥 Preparando descarga de DedSec para macOS...');
+        });
+        
+        document.getElementById('downloadLinux')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('📥 Preparando descarga de DedSec para Linux...');
+        });
+        
+        document.getElementById('downloadAndroid')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('📥 Preparando descarga de DedSec para Android...');
+        });
+        
+        // Reloj
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeElem = document.querySelector('.time');
+            if (timeElem) timeElem.textContent = `${hours}:${minutes}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
