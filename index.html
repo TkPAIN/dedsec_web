@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>DedSec | Despertar Colectivo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal-overlay"></div>
+    
+    <div class="app-container">
+        <!-- BARRA DE ESTADO (estilo móvil/desktop) -->
+        <div class="status-bar">
+            <div class="time">21:47</div>
+            <div class="battery">
+                <span>94%</span>
+                <div class="battery-icon"></div>
+            </div>
+        </div>
+
+        <!-- HEADER DEDSEC -->
+        <header class="dedsec-header">
+            <div class="logo">
+                <span class="dedsec-symbol">⎈</span>
+                <h1>DedSec</h1>
+            </div>
+            <div class="followers-count">
+                <span class="followers-label">SEGUIDORES</span>
+                <span class="followers-number" id="followersCount">12,847</span>
+            </div>
+        </header>
+
+        <!-- NAVEGACIÓN PRINCIPAL (igual que en el juego) -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-page="missions">
+                <span class="nav-icon">📡</span>
+                <span>MISIONES</span>
+            </button>
+            <button class="nav-btn" data-page="map">
+                <span class="nav-icon">🗺️</span>
+                <span>NUDLE MAPS</span>
+            </button>
+            <button class="nav-btn" data-page="chat">
+                <span class="nav-icon">💬</span>
+                <span>DEDSEC CHAT</span>
+            </button>
+            <button class="nav-btn" data-page="research">
+                <span class="nav-icon">🔓</span>
+                <span>INVESTIGA</span>
+            </button>
+        </nav>
+
+        <!-- CONTENEDOR DE PÁGINAS DINÁMICAS -->
+        <main class="main-content">
+            <!-- PÁGINA DE MISIONES (HOME) -->
+            <div id="missions-page" class="page active">
+                <div class="cyber-header">
+                    <h2>OPERACIONES ACTIVAS</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 34%"></div>
+                    </div>
+                    <span class="progress-text">34% COMPLETADO</span>
+                </div>
+
+                <div class="missions-list" id="missionsList">
+                    <!-- Las misiones se generarán con JS -->
+                </div>
+
+                <div class="research-points">
+                    <h3>PUNTOS DE INVESTIGACIÓN</h3>
+                    <div class="points-value">3</div>
+                    <p>Completa misiones para ganar más</p>
+                </div>
+            </div>
+
+            <!-- PÁGINA DEL MAPA (Nudle Maps) -->
+            <div id="map-page" class="page">
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="map-grid"></div>
+                        <div class="map-marker">📍</div>
+                        <div class="map-controls">
+                            <button>+</button>
+                            <button>-</button>
+                        </div>
+                    </div>
+                    <div class="map-info">
+                        <p>📍 San Francisco, Bay Area</p>
+                        <p>🔓 Hackea nodos para expandir el mapa</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PÁGINA DE CHAT DEDSEC -->
+            <div id="chat-page" class="page">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message system">🤖 Conectado al servidor DedSec</div>
+                        <div class="message system">🔐 Canal cifrado AES-256</div>
+                        <div class="message user"><strong>Sitara:</strong> ¿Alguien tiene info de Blume?</div>
+                        <div class="message user"><strong>Marcus:</strong> Estoy dentro de su servidor proxy</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Mensaje cifrado...">
+                        <button id="sendChat">📡 ENVIAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PÁGINA DE INVESTIGACIÓN -->
+            <div id="research-page" class="page">
+                <div class="research-header">
+                    <h2>🔓 DESBLOQUEABLES</h2>
+                    <p>Gasta puntos de investigación</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card locked">
+                        <span class="skill-icon">📱</span>
+                        <h4>Botnet Distribuida</h4>
+                        <p>Controla 4 dispositivos a la vez</p>
+                        <button disabled>3 PUNTOS</button>
+                    </div>
+                    <div class="skill-card locked">
+                        <span class="skill-icon">🚗</span>
+                        <h4>Secuestro de Vehículos</h4>
+                        <p>Controla coches remotamente</p>
+                        <button disabled>2 PUNTOS</button>
+                    </div>
+                    <div class="skill-card available">
+                        <span class="skill-icon">📡</span>
+                        <h4>Escaneo Mejorado</h4>
+                        <p>Doble rango de escaneo</p>
+                        <button class="unlock-btn" data-cost="1">1 PUNTO</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER HACKER -->
+        <footer class="dedsec-footer">
+            <div class="glitch-text">#DespertarColectivo</div>
+            <div class="cyber-stats">
+                <span>🛡️ Cifrado activo</span>
+                <span>🌐 7 nodos activos</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
